@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "909102038701",
+    "firebase_url": "https://finans-fc0e8-default-rtdb.firebaseio.com",
+    "project_id": "finans-fc0e8",
+    "storage_bucket": "finans-fc0e8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:909102038701:android:f39202c541b0b55034d024",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJcuwsTjSUNAJ7CbDJqH7WhoGM7QsIhrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
