@@ -19,8 +19,6 @@ final AuthService authService = AuthService();
 AuthService _auth = AuthService();
 
 class _MainPageState extends State<MainPage> {
-  bool _showFavorites = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,9 +82,8 @@ class _MainPageState extends State<MainPage> {
               ],
             ),
           ),
-          ButtonRowContainer(
-          ),
-               AssetPriceContainer(),
+          ButtonRowContainer(),
+          AssetPriceContainer(),
         ],
       ),
     );
@@ -107,9 +104,4 @@ class _MainPageState extends State<MainPage> {
       icon: const Icon(Icons.logout),
     );
   }
-
-  
 }
-
-
-

@@ -1,8 +1,6 @@
 import 'package:finans/firebase_options.dart';
 import 'package:finans/login/firebase/login_service.dart';
-import 'package:finans/pages/assets_page_view.dart';
 import 'package:finans/pages/main_page_view.dart';
-import 'package:finans/pages/portfolio_page_view.dart';
 import 'package:finans/product/color_items.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
