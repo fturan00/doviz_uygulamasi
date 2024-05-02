@@ -5,7 +5,6 @@ import 'package:finans/pages/portfolio_page_view.dart';
 import 'package:finans/product/padding_items.dart';
 import 'package:finans/widget/main_page_widget/asset_price_container.dart';
 import 'package:finans/widget/main_page_widget/button_row_container.dart';
-import 'package:finans/widget/main_page_widget/favorite_asset_price_container.dart';
 import 'package:finans/widget/main_page_widget/portfolio_card.dart';
 import 'package:flutter/material.dart';
 
@@ -47,7 +46,7 @@ class _MainPageState extends State<MainPage> {
                   icon: const Row(
                     children: [
                       Text(
-                        "Portfolio",
+                        "Portfolyö",
                         style: TextStyle(
                             fontSize: 28, fontWeight: FontWeight.w500),
                       ),
@@ -61,7 +60,7 @@ class _MainPageState extends State<MainPage> {
                   },
                   icon: const Row(
                     children: [
-                      Text("Assets",
+                      Text("Dövizler",
                           style: TextStyle(
                               fontSize: 28, fontWeight: FontWeight.w500)),
                     ],
@@ -77,7 +76,7 @@ class _MainPageState extends State<MainPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "Assets",
+                  "Dövizler",
                   style: TextStyle(
                     fontSize: 28,
                   ),
@@ -86,12 +85,8 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
           ButtonRowContainer(
-            toggleShowFavorites: _toggleShowFavorites,
-            showFavorites: _showFavorites,
           ),
-          _showFavorites
-              ? FavoriteAssetPriceContainer()
-              : AssetPriceContainer(),
+               AssetPriceContainer(),
         ],
       ),
     );
@@ -113,11 +108,7 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  void _toggleShowFavorites() {
-    setState(() {
-      _showFavorites = !_showFavorites;
-    });
-  }
+  
 }
 
 

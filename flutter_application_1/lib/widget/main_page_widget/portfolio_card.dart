@@ -14,17 +14,10 @@ class PortfolioCard extends StatefulWidget {
 }
 
 class _PortfolioCardState extends State<PortfolioCard> {
-  final String text1 = "Total balance";
-
-  final String text2 = "17,475";
-
-  final String text3 = "Total balance";
-
-  final String text4 = "+2,754";
-
+  final String text1 = "Toplam değeri";
   final String text5 = "%2,75";
-
   final String text6 = "TRY";
+ 
   late double balanceTotal;
   late double previousBalanceTotal;
   void initState() {

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finans/doviz_veri_getir.dart';
 import 'package:finans/product/padding_items.dart';
 import 'package:finans/widget/main_page_widget/asset_row.dart';
@@ -19,23 +20,21 @@ class _AssetPriceContainerState extends State<AssetPriceContainer> {
   late List<DovizModel> dovizList = [];
   bool _isLoading = true;
 
-  @override
-  void initState() {
-    super.initState;
-    // TODO: implement initState
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     loadDovizData();
   }
 
   void _toggleShowAllAssets() {
-  setState(() {
-    _showAllAssets = !_showAllAssets;
-    _isLoading = false; 
-  });
+    setState(() {
+      _showAllAssets = !_showAllAssets;
+      _isLoading = false;
+    });
 
-  if (dovizList.isEmpty) {
-    loadDovizData();
+    if (dovizList.isEmpty) {
+      loadDovizData();
+    }
   }
-}
 
   Future<void> loadDovizData() async {
     try {
@@ -52,15 +51,16 @@ class _AssetPriceContainerState extends State<AssetPriceContainer> {
 
   final double containerWidth = 30.0;
   final double containerHeight = 30.0;
-  final String text1 = "Assets";
-  final String text2 = "Price";
-  final String text3 = "Balance";
-  final String text8 = "Show all assets";
+  final String text1 = "Dövizler";
+  final String text2 = "Alış";
+  final String text3 = "Satış";
+  final String text8 = "Daha fazla göster";
 
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return Center(child: Padding(
+      return Center(
+          child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: CircularProgressIndicator(),
       ));
@@ -107,6 +107,7 @@ class _AssetPriceContainerState extends State<AssetPriceContainer> {
                       containerHeight: containerHeight,
                       text4: doviz.name,
                       text5: doviz.buying.toString(),
+                      text6: doviz.selling.toString()
                     ),
                   _ShowAllAssetButton(),
                 ],
@@ -115,11 +116,11 @@ class _AssetPriceContainerState extends State<AssetPriceContainer> {
                 children: [
                   if (_showAllAssets == false && dovizList.isNotEmpty)
                     AssetRow(
-                      containerWidth: containerWidth,
-                      containerHeight: containerHeight,
-                      text4: dovizList[0].name,
-                      text5: dovizList[0].buying.toString(),
-                    ),
+                        containerWidth: containerWidth,
+                        containerHeight: containerHeight,
+                        text4: dovizList[0].name,
+                        text5: dovizList[0].buying.toString(),
+                        text6: dovizList[0].selling.toString()),
                   _ShowAllAssetButton(),
                 ],
               ),
@@ -129,29 +130,29 @@ class _AssetPriceContainerState extends State<AssetPriceContainer> {
 
   Row _ShowAllAssetButton() {
     return Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: PaddingMain().paddingTop,
-                      child: Row(
-                        children: [
-                          Text(
-                            text8,
-                          ),
-                          IconButton(
-                            onPressed: _toggleShowAllAssets,
-                            icon: Icon(
-                              _showAllAssets
-                                  ? Icons.keyboard_arrow_up_rounded
-                                  : Icons.keyboard_arrow_down_rounded,
-                              size: 20,
-                            ),
-                            color: Colors.black,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                );
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Padding(
+          padding: PaddingMain().paddingTop,
+          child: Row(
+            children: [
+              Text(
+                text8,
+              ),
+              IconButton(
+                onPressed: _toggleShowAllAssets,
+                icon: Icon(
+                  _showAllAssets
+                      ? Icons.keyboard_arrow_up_rounded
+                      : Icons.keyboard_arrow_down_rounded,
+                  size: 20,
+                ),
+                color: Colors.black,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }

@@ -8,12 +8,14 @@ class AssetRow extends StatelessWidget {
     required this.containerHeight,
     required this.text4,
     required this.text5,
+    required this.text6,
   });
 
   final double containerWidth;
   final double containerHeight;
   final String text4;
   final String text5;
+  final String text6;
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +25,6 @@ class AssetRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Expanded(
-            child: SizedBox(
-                width: containerWidth,
-                height: containerHeight,
-                child: Image.asset(
-                  "assets/images/dolar.png",
-                )),
-          ),
-          Expanded(
               child: Text(
             text4,
             textAlign: TextAlign.center,
@@ -38,6 +32,11 @@ class AssetRow extends StatelessWidget {
           Expanded(
               child: Text(
             text5,
+            textAlign: TextAlign.center,
+          )),
+          Expanded(
+              child: Text(
+            text6,
             textAlign: TextAlign.center,
           ))
         ],

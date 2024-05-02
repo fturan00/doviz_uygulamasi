@@ -5,12 +5,7 @@ import 'package:flutter/material.dart';
 class ButtonRowContainer extends StatefulWidget {
   const ButtonRowContainer({
     super.key,
-    required this.toggleShowFavorites,
-    required this.showFavorites,
   });
-
-  final bool showFavorites;
-  final VoidCallback toggleShowFavorites;
 
   @override
   State<ButtonRowContainer> createState() => ButtonRowContainerState();
@@ -19,9 +14,8 @@ class ButtonRowContainer extends StatefulWidget {
 DovizRepository dovizRepository = DovizRepository();
 
 class ButtonRowContainerState extends State<ButtonRowContainer> {
-  final String allAssets = 'All Assets (10)';
-  final String favorites = 'Favorites';
-  final String search = 'Search';
+  final String allAssets = 'Tümü (10)';
+  final String search = 'Ara';
 
   @override
   Widget build(BuildContext context) {
@@ -31,25 +25,11 @@ class ButtonRowContainerState extends State<ButtonRowContainer> {
         children: [
           IconButton(
             onPressed: () {
-              if (widget.showFavorites) {
-                widget.toggleShowFavorites();
-              }
+
             },
             icon: Row(
               children: [
                 Text(allAssets),
-              ],
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              if (!widget.showFavorites) {
-                widget.toggleShowFavorites();
-              }
-            },
-            icon: Row(
-              children: [
-                Text(favorites),
               ],
             ),
           ),

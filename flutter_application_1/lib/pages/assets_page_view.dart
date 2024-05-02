@@ -1,4 +1,4 @@
-import 'package:finans/data.dart';
+import 'package:finans/mockdata.dart';
 import 'package:finans/doviz_veri_getir.dart';
 import 'package:finans/product/padding_items.dart';
 import 'package:finans/widget/main_page_widget/asset_price_container.dart';
@@ -14,10 +14,9 @@ class AssetsPage extends StatefulWidget {
 const double containerWidth = 30.0;
 const double containerHeight = 30.0;
 
-const String text1 = "Assets";
-const String text2 = "Buying";
-const String text3 = "Selling";
-const String text8 = "Show all assets";
+const String text1 = "Dövizler";
+const String text2 = "Alış";
+const String text3 = "Satış";
 
 class _AssetsPageState extends State<AssetsPage> {
   @override
