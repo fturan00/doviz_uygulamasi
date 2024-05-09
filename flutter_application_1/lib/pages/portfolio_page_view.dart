@@ -4,7 +4,7 @@ import 'package:finans/widget/main_page_widget/asset_price_container.dart';
 import 'package:finans/widget/portfolio_page_widget/item_widget.dart';
 import 'package:finans/widget/portfolio_page_widget/title_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class PortfolioPage extends StatefulWidget {
   const PortfolioPage({Key? key}) : super(key: key);
