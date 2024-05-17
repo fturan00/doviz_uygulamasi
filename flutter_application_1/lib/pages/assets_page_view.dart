@@ -24,7 +24,7 @@ class _AssetsPageState extends State<AssetsPage> {
       appBar: AppBar(
         title: const Text(text1),
       ),
-      body: AssetPageWidget(dovizViewModel: dovizViewModel,),
+      body: AssetPageWidget(dovizViewModel: dovizViewModel),
     );
   }
 }
@@ -32,10 +32,23 @@ class _AssetsPageState extends State<AssetsPage> {
 class AssetPageWidget extends StatelessWidget {
   final DovizViewModel dovizViewModel;
   const AssetPageWidget({
-    super.key, required this.dovizViewModel,
+    super.key,
+    required this.dovizViewModel,
   });
 
-  
+  @override
+  Widget build(BuildContext context) {
+    return _AssetsPageFutureBuilderWidget(dovizViewModel: dovizViewModel);
+  }
+}
+
+class _AssetsPageFutureBuilderWidget extends StatelessWidget {
+  const _AssetsPageFutureBuilderWidget({
+    super.key,
+    required this.dovizViewModel,
+  });
+
+  final DovizViewModel dovizViewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -44,51 +57,7 @@ class AssetPageWidget extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<DovizModel> dovizList = snapshot.data!;
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: PaddingMain().paddingMain,
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          text1,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          text2,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          text3,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: dovizList.length, 
-                  itemBuilder: (context, index) {
-                    DovizModel dovizModel = dovizList[index];
-                    return ItemWidget(dovizModel: dovizModel);
-                  } ,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                ),
-              ],
-            ),
-          );
+          return _AssetPageScrollWidget(dovizList: dovizList);
         } else if (snapshot.hasError) {
           return Center(
             child: Text("Error: ${snapshot.error}"),
@@ -98,6 +67,62 @@ class AssetPageWidget extends StatelessWidget {
           child: CircularProgressIndicator(),
         );
       },
+    );
+  }
+}
+
+class _AssetPageScrollWidget extends StatelessWidget {
+  const _AssetPageScrollWidget({
+    super.key,
+    required this.dovizList,
+  });
+
+  final List<DovizModel> dovizList;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: PaddingMain().paddingMain,
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
+                child: Text(
+                  text1,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  text2,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  text3,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.w600),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            itemCount: dovizList.length,
+            itemBuilder: (context, index) {
+              DovizModel dovizModel = dovizList[index];
+              return ItemWidget(dovizModel: dovizModel);
+            },
+          ),
+        ),
+      ],
     );
   }
 }
@@ -130,7 +155,7 @@ class ItemWidget extends StatelessWidget {
               dovizModel.selling.toString(),
               textAlign: TextAlign.center,
             ),
-          )
+          ),
         ],
       ),
     );

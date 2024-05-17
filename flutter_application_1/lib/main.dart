@@ -37,3 +37,6 @@ class AppThemeCustom {
       appBarTheme:
           const AppBarTheme(backgroundColor: Colors.red, elevation: 0));
 }
+
+
+// doviz verilerinde aşağı veya yukarı yön değişimlerine göre. listeyi sürekli güncelleyen bi yapıda eski ve yeni değerini karşılaştıran bir yapıya göre.
