@@ -6,24 +6,36 @@ class DovizModel {
   final double? buying;
   final double? selling;
 
-  DovizModel({required this.name, this.buying, this.selling});
+  DovizModel({
+    required this.name,
+    required this.buying,
+    required this.selling,
+  });
 
   factory DovizModel.fromJson(Map<String, dynamic> json) {
-  return DovizModel(
-    name: json['name'],
-    buying: json.containsKey('buying')
-        ? (json['buying'] is int ? (json['buying'] as int).toDouble() : json['buying'])
-        : null,
-    selling: json.containsKey('selling')
-        ? (json['selling'] is int ? (json['selling'] as int).toDouble() : json['selling'])
-        : null,
-  );
-}
+    return DovizModel(
+      name: json['name'],
+      buying: json['buying'] != null
+          ? (json['buying'] is int ? (json['buying'] as int).toDouble() : json['buying'])
+          : null,
+      selling: json['selling'] != null
+          ? (json['selling'] is int ? (json['selling'] as int).toDouble() : json['selling'])
+          : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'buying': buying,
+      'selling': selling,
+    };
+  }
 }
 
 class DovizApiService {
   Future<dynamic> getDovizApiData() async {
-    const dovizApiKey = "1GXDtFI5gX4I1GyZy8Udtb:3ZqLetwbLOUynJPBqzflEJ";
+    const dovizApiKey = "0TZVcZk3qYZXotUn5ms3wI:7DEAijFmnlJFow4oEBBz1G";
     const dovizApiUrl =
         'https://api.collectapi.com/economy/allCurrency';
 

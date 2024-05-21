@@ -1,7 +1,7 @@
 import 'package:finans/doviz_veri_getir.dart';
 import 'package:finans/product/padding_items.dart';
-import 'package:finans/widget/main_page_widget/asset_price_container.dart';
 import 'package:flutter/material.dart';
+import 'package:finans/doviz_storage.dart'; 
 
 class AssetsPage extends StatefulWidget {
   const AssetsPage({Key? key});
@@ -18,46 +18,84 @@ const String text2 = "Alış";
 const String text3 = "Satış";
 
 class _AssetsPageState extends State<AssetsPage> {
+  late Future<List<DovizModel>> _futureDovizList;
+  List<DovizModel>? _initialDovizList;
+  late DovizViewModel dovizViewModel;
+  late DovizStorage dovizStorage; 
+
+  @override
+  void initState() {
+    super.initState();
+    dovizViewModel = DovizViewModel();
+    dovizStorage = DovizStorage();
+    _loadInitialDovizList();
+    _futureDovizList = dovizViewModel.getDovizList();
+    _futureDovizList.then((dovizList) {
+      dovizStorage.saveInitialDovizList(dovizList);
+    });
+  }
+
+  Future<void> _loadInitialDovizList() async {
+    List<DovizModel>? dovizList = await dovizStorage.loadInitialDovizList();
+    setState(() {
+      _initialDovizList = dovizList;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(text1),
       ),
-      body: AssetPageWidget(dovizViewModel: dovizViewModel),
+      body: AssetPageWidget(
+        futureDovizList: _futureDovizList,
+        initialDovizList: _initialDovizList,
+      ),
     );
   }
 }
 
 class AssetPageWidget extends StatelessWidget {
-  final DovizViewModel dovizViewModel;
+  final Future<List<DovizModel>> futureDovizList;
+  final List<DovizModel>? initialDovizList;
+
   const AssetPageWidget({
     super.key,
-    required this.dovizViewModel,
+    required this.futureDovizList,
+    this.initialDovizList,
   });
 
   @override
   Widget build(BuildContext context) {
-    return _AssetsPageFutureBuilderWidget(dovizViewModel: dovizViewModel);
+    return _AssetsPageFutureBuilderWidget(
+      futureDovizList: futureDovizList,
+      initialDovizList: initialDovizList,
+    );
   }
 }
 
 class _AssetsPageFutureBuilderWidget extends StatelessWidget {
+  final Future<List<DovizModel>> futureDovizList;
+  final List<DovizModel>? initialDovizList;
+
   const _AssetsPageFutureBuilderWidget({
     super.key,
-    required this.dovizViewModel,
+    required this.futureDovizList,
+    this.initialDovizList,
   });
-
-  final DovizViewModel dovizViewModel;
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<DovizModel>>(
-      future: dovizViewModel.getDovizList(),
+      future: futureDovizList,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<DovizModel> dovizList = snapshot.data!;
-          return _AssetPageScrollWidget(dovizList: dovizList);
+          return _AssetPageScrollWidget(
+            dovizList: dovizList,
+            initialDovizList: initialDovizList,
+          );
         } else if (snapshot.hasError) {
           return Center(
             child: Text("Error: ${snapshot.error}"),
@@ -72,12 +110,14 @@ class _AssetsPageFutureBuilderWidget extends StatelessWidget {
 }
 
 class _AssetPageScrollWidget extends StatelessWidget {
+  final List<DovizModel> dovizList;
+  final List<DovizModel>? initialDovizList;
+
   const _AssetPageScrollWidget({
     super.key,
     required this.dovizList,
+    this.initialDovizList,
   });
-
-  final List<DovizModel> dovizList;
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +158,14 @@ class _AssetPageScrollWidget extends StatelessWidget {
             itemCount: dovizList.length,
             itemBuilder: (context, index) {
               DovizModel dovizModel = dovizList[index];
-              return ItemWidget(dovizModel: dovizModel);
+              DovizModel? initialDovizModel = initialDovizList?.firstWhere(
+                (element) => element.name == dovizModel.name,
+                orElse: () => DovizModel(name: '', buying: 0.0, selling: 0.0),
+              );
+              return ItemWidget(
+                dovizModel: dovizModel,
+                initialDovizModel: initialDovizModel,
+              );
             },
           ),
         ),
@@ -129,10 +176,24 @@ class _AssetPageScrollWidget extends StatelessWidget {
 
 class ItemWidget extends StatelessWidget {
   final DovizModel dovizModel;
-  ItemWidget({Key? key, required this.dovizModel}) : super(key: key);
+  final DovizModel? initialDovizModel;
+
+  ItemWidget({Key? key, required this.dovizModel, this.initialDovizModel})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    IconData? icon;
+    if (initialDovizModel != null &&
+        initialDovizModel!.buying != null &&
+        dovizModel.buying != null) {
+      if (dovizModel.buying! > initialDovizModel!.buying!) {
+        icon = Icons.arrow_upward;
+      } else if (dovizModel.buying! < initialDovizModel!.buying!) {
+        icon = Icons.arrow_downward;
+      }
+    }
+
     return Padding(
       padding: PaddingMain().paddingMain,
       child: Row(
@@ -145,14 +206,20 @@ class ItemWidget extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Text(
-              dovizModel.buying.toString(),
-              textAlign: TextAlign.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  dovizModel.buying?.toString() ?? '',
+                  textAlign: TextAlign.center,
+                ),
+                if (icon != null) Icon(icon, size: 16.0),
+              ],
             ),
           ),
           Expanded(
             child: Text(
-              dovizModel.selling.toString(),
+              dovizModel.selling?.toString() ?? '',
               textAlign: TextAlign.center,
             ),
           ),
