@@ -1,6 +1,6 @@
 import 'package:finans/pages/assets_page_view.dart';
-import 'package:finans/login/firebase/login_service.dart';
-import 'package:finans/login/firebase/login_view.dart';
+import 'package:finans/service/login_service.dart';
+import 'package:finans/pages/login_view.dart';
 import 'package:finans/pages/portfolio_page_view.dart';
 import 'package:finans/product/padding_items.dart';
 import 'package:finans/widget/main_page_widget/asset_price_container.dart';

@@ -1,4 +1,4 @@
-import 'package:finans/doviz_veri_getir.dart';
+import 'package:finans/service/doviz_veri_getir.dart';
 import 'package:finans/product/padding_items.dart';
 import 'package:finans/widget/main_page_widget/asset_row.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:finans/doviz_veri_getir.dart';
+import 'package:finans/service/doviz_veri_getir.dart';
 
 class DovizStorage {
   Future<void> saveInitialDovizList(List<DovizModel> dovizList) async {

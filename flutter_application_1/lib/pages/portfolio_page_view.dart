@@ -1,5 +1,5 @@
 
-import 'package:finans/doviz_veri_getir.dart';
+import 'package:finans/service/doviz_veri_getir.dart';
 import 'package:finans/widget/main_page_widget/asset_price_container.dart';
 import 'package:finans/widget/portfolio_page_widget/item_widget.dart';
 import 'package:finans/widget/portfolio_page_widget/title_widget.dart';

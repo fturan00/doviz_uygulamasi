@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:finans/login/firebase/login_service.dart';
+import 'package:finans/service/login_service.dart';
 import 'package:finans/product/login_strings.dart';
-import 'package:finans/login/firebase/register_view.dart';
+import 'package:finans/pages/register_view.dart';
 import 'package:finans/pages/main_page_view.dart';
 import 'package:finans/widget/circular__progress_indicator.dart';
 import 'package:finans/widget/login_sizedbox.dart';

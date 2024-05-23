@@ -1,7 +1,8 @@
-import 'package:finans/doviz_veri_getir.dart';
+import 'package:finans/service/doviz_veri_getir.dart';
 import 'package:finans/product/padding_items.dart';
 import 'package:flutter/material.dart';
-import 'package:finans/doviz_storage.dart'; 
+import 'package:finans/service/doviz_storage.dart';
+import 'package:flutter/widgets.dart'; 
 
 class AssetsPage extends StatefulWidget {
   const AssetsPage({Key? key});
@@ -222,15 +223,20 @@ class ItemWidget extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  dovizModel.buying?.toString() ?? '',
-                  textAlign: TextAlign.center,
-                ),
-                if (icon != null) Icon(icon, size: 16.0),
-              ],
+            child: Padding(
+              padding: PaddingMain().paddingMain,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Text(
+                      dovizModel.buying?.toString() ?? '',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  if (icon != null) Expanded(child: Icon(icon, size: 16.0)),
+                ],
+              ),
             ),
           ),
           Expanded(

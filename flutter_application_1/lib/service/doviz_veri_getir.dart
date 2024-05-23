@@ -35,7 +35,7 @@ class DovizModel {
 
 class DovizApiService {
   Future<dynamic> getDovizApiData() async {
-    const dovizApiKey = "0TZVcZk3qYZXotUn5ms3wI:7DEAijFmnlJFow4oEBBz1G";
+    const dovizApiKey = "3ZnN3EvX8OWiRuOqqgtfEI:4L8MVArRh6dkkIs65HgFKq";
     const dovizApiUrl =
         'https://api.collectapi.com/economy/allCurrency';
 
