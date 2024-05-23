@@ -152,24 +152,40 @@ class _AssetPageScrollWidget extends StatelessWidget {
             ],
           ),
         ),
-        Expanded(
-          child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            itemCount: dovizList.length,
-            itemBuilder: (context, index) {
-              DovizModel dovizModel = dovizList[index];
-              DovizModel? initialDovizModel = initialDovizList?.firstWhere(
-                (element) => element.name == dovizModel.name,
-                orElse: () => DovizModel(name: '', buying: 0.0, selling: 0.0),
-              );
-              return ItemWidget(
-                dovizModel: dovizModel,
-                initialDovizModel: initialDovizModel,
-              );
-            },
-          ),
-        ),
+        _AssetPageListView(dovizList: dovizList, initialDovizList: initialDovizList),
       ],
+    );
+  }
+}
+
+class _AssetPageListView extends StatelessWidget {
+  const _AssetPageListView({
+    super.key,
+    required this.dovizList,
+    required this.initialDovizList,
+  });
+
+  final List<DovizModel> dovizList;
+  final List<DovizModel>? initialDovizList;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: dovizList.length,
+        itemBuilder: (context, index) {
+          DovizModel dovizModel = dovizList[index];
+          DovizModel? initialDovizModel = initialDovizList?.firstWhere(
+            (element) => element.name == dovizModel.name,
+            orElse: () => DovizModel(name: '', buying: 0.0, selling: 0.0),
+          );
+          return ItemWidget(
+            dovizModel: dovizModel,
+            initialDovizModel: initialDovizModel,
+          );
+        },
+      ),
     );
   }
 }

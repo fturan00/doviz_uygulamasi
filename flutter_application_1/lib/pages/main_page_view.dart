@@ -25,71 +25,24 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: [
-          _signOutButton(context),
+          _signOutButton(context: context),
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Padding(
-            padding: PaddingMain().paddingMain,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const PortfolioPage()));
-                  },
-                  icon: const Row(
-                    children: [
-                      Text(
-                        "Portfolyö",
-                        style: TextStyle(
-                            fontSize: 28, fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const AssetsPage()));
-                  },
-                  icon: const Row(
-                    children: [
-                      Text("Dövizler",
-                          style: TextStyle(
-                              fontSize: 28, fontWeight: FontWeight.w500)),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const PortfolioCard(),
-          Padding(
-            padding: PaddingMain().paddingMain,
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  "Dövizler",
-                  style: TextStyle(
-                    fontSize: 28,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          ButtonRowContainer(),
-          AssetPriceContainer(),
-        ],
-      ),
+      body: _MainPageColumn(),
     );
   }
+}
 
-  IconButton _signOutButton(BuildContext context) {
+class _signOutButton extends StatelessWidget {
+  const _signOutButton({
+    super.key,
+    required this.context,
+  });
+
+  final BuildContext context;
+
+  @override
+  Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {
         _auth.signOut().then((value) {
@@ -102,6 +55,74 @@ class _MainPageState extends State<MainPage> {
         });
       },
       icon: const Icon(Icons.logout),
+    );
+  }
+}
+
+class _MainPageColumn extends StatelessWidget {
+  const _MainPageColumn({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Padding(
+          padding: PaddingMain().paddingMain,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const PortfolioPage()));
+                },
+                icon: const Row(
+                  children: [
+                    Text(
+                      "Portfolyö",
+                      style: TextStyle(
+                          fontSize: 28, fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const AssetsPage()));
+                },
+                icon: const Row(
+                  children: [
+                    Text("Dövizler",
+                        style: TextStyle(
+                            fontSize: 28, fontWeight: FontWeight.w500)),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        const PortfolioCard(),
+        Padding(
+          padding: PaddingMain().paddingMain,
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                "Dövizler",
+                style: TextStyle(
+                  fontSize: 28,
+                ),
+              ),
+            ],
+          ),
+        ),
+        ButtonRowContainer(),
+        AssetPriceContainer(),
+      ],
     );
   }
 }
